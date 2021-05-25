@@ -4,6 +4,7 @@ import {View,Text,StyleSheet,FlatList,Button,TouchableOpacity } from 'react-nati
 import {Context} from '../context/exampleOfCreateDataContext'
 
 import {Feather} from '@expo/vector-icons';
+
 const indexScreen=({navigation})=>{
 
 	// const {data,addBlogPost} = useContext(blogContext)
@@ -41,23 +42,24 @@ const indexScreen=({navigation})=>{
 			/>
 
 		</View>
+
 		)
 } 
 
 indexScreen.navigationOptions= ({navigation})=>{
 
 	return{
+		
 		headerRight:(
 			
 		<TouchableOpacity onPress={ ()=> navigation.navigate('Create') }>
-		<Feather name="plus" size={30} style={{marginRight: 50}}/>,
+		<Feather name="plus" size={30} style={{marginRight: 50}}/>
 		</TouchableOpacity>
 
 		)
-	};
+	}
 
 }
-
 
 const styles = StyleSheet.create({
 
@@ -68,16 +70,18 @@ const styles = StyleSheet.create({
 		paddingVertical:  20,
 		borderTopWidth:  1,
 		paddingHorizontal:10,
-		borderColor: 'gray'
+		borderColor: 'grey'
 	},
 
 	title:{
 
 		fontSize: 18
 	},
+	
 	icon:{
 
 		fontSize: 15
 	}
 })
+
 export default indexScreen

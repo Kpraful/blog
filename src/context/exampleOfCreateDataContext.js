@@ -23,6 +23,24 @@ const blogReducer = (state, action) => {
 
 				}]
 			)
+
+		case 'edit_blogPost':
+
+			state=state.filter((state) => state.id!== action.payload.id)
+
+			return(
+
+						
+						[...state,{
+
+							title:action.payload.title,
+
+							id:action.payload.id,
+
+							content: action.payload.content,
+						}]
+				)
+
 		case 'delete_blogpost':
 			return state.filter((blogPost) => blogPost.id !== action.payload)
 
@@ -49,7 +67,7 @@ const blogReducer = (state, action) => {
 // 			}
 // 		})
 const addBlogPost = (dispatch) => {
-	return (title, content) => {
+	return (title, content,callback) => {
 
 		dispatch({
 			type: 'add_blogpost',
@@ -58,9 +76,28 @@ const addBlogPost = (dispatch) => {
 				content: content
 			}
 		})
+
+		if(callback){
+			callback();
+		}
 	}
 
 }
+
+//Inner function is actually what run inside component
+const editBlogPost=dispatch=>{
+
+	return(id,title,content,callback)=>{
+
+		dispatch({type:'edit_blogPost',payload:{id:id, title:title , content:content}})
+
+		if(callback)
+		{
+			callback();
+		}
+	}
+}
+
 
 const deleteBlogPost = (dispatch) => {
 	return (id) => {
@@ -71,4 +108,4 @@ const deleteBlogPost = (dispatch) => {
 	}
 }
 
-export const { Context, Provider } = createDataContext(blogReducer, { addBlogPost, deleteBlogPost }, [{title: 'Test Post',content: 'Test Content',id:1  }])
+export const { Context, Provider } = createDataContext(blogReducer, { addBlogPost, deleteBlogPost, editBlogPost }, [{title: 'Test Post',content: 'Test Content',id:1  }])

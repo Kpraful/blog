@@ -9,7 +9,7 @@ const ShowScreen=({navigation})=>{
 
 	const blogPost=state.find( (state)  => state.id==navigation.getParam('id') )
 
-	console.log(blogPost)
+	// console.log(blogPost)
 
 	return(
 
