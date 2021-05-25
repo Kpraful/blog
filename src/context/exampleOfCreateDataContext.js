@@ -2,6 +2,9 @@ import React, {
 	useState,
 	useReducer
 } from 'react'
+
+
+import jsonServer from '../api/jsonServer'
 import createDataContext from './createDataContext'
 
 
@@ -38,11 +41,15 @@ const blogReducer = (state, action) => {
 							id:action.payload.id,
 
 							content: action.payload.content,
-						}]
+						}]					
 				)
 
 		case 'delete_blogpost':
 			return state.filter((blogPost) => blogPost.id !== action.payload)
+
+
+		case 'get_blogpost':
+			return action.payload
 
 		default:
 			return state
@@ -50,6 +57,16 @@ const blogReducer = (state, action) => {
 
 }
 
+const getBlogPost=dispatch=>{
+
+	return async ()=>{
+
+		const response=await jsonServer.get('/blogpost');
+
+		//response.data === [{},{},{} ]
+		dispatch({type:'get_blogpost',payload:response.data})
+	}	
+}
 
 // WhenEvery this function is called it's inside function will be returned
 
@@ -108,4 +125,4 @@ const deleteBlogPost = (dispatch) => {
 	}
 }
 
-export const { Context, Provider } = createDataContext(blogReducer, { addBlogPost, deleteBlogPost, editBlogPost }, [{title: 'Test Post',content: 'Test Content',id:1  }])
+export const { Context, Provider } = createDataContext(blogReducer, { addBlogPost, deleteBlogPost, editBlogPost, getBlogPost }, [])

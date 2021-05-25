@@ -1,4 +1,4 @@
-import React,{	useContext} from 'react'
+import React,{	useContext,useEffect} from 'react'
 import {View,Text,StyleSheet,FlatList,Button,TouchableOpacity } from 'react-native'
 // import blogContext from '../context/BlogContext'
 import {Context} from '../context/exampleOfCreateDataContext'
@@ -8,8 +8,15 @@ import {Feather} from '@expo/vector-icons';
 const indexScreen=({navigation})=>{
 
 	// const {data,addBlogPost} = useContext(blogContext)
-	const {state, addBlogPost, deleteBlogPost} = useContext(Context);
+	const {state, addBlogPost, deleteBlogPost,getBlogPost} = useContext(Context);
 
+
+	useEffect(()=> {
+
+		// console.log(getBlogPost)
+		getBlogPost()
+
+	},[])
 	
 	return(
 
@@ -50,7 +57,7 @@ indexScreen.navigationOptions= ({navigation})=>{
 
 	return{
 		
-		headerRight:(
+		headerRight:()=>(
 			
 		<TouchableOpacity onPress={ ()=> navigation.navigate('Create') }>
 		<Feather name="plus" size={30} style={{marginRight: 50}}/>
@@ -77,7 +84,7 @@ const styles = StyleSheet.create({
 
 		fontSize: 18
 	},
-	
+
 	icon:{
 
 		fontSize: 15
