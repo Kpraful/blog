@@ -84,15 +84,17 @@ const getBlogPost=dispatch=>{
 // 			}
 // 		})
 const addBlogPost = (dispatch) => {
-	return (title, content,callback) => {
+	return async(title, content,callback) => {
 
-		dispatch({
-			type: 'add_blogpost',
-			payload: {
-				title: title,
-				content: content
-			}
-		})
+		await jsonServer.post('/blogpost',{title,content})
+
+		// dispatch({
+		// 	type: 'add_blogpost',
+		// 	payload: {
+		// 		title: title,
+		// 		content: content
+		// 	}
+		// })
 
 		if(callback){
 			callback();
@@ -104,8 +106,9 @@ const addBlogPost = (dispatch) => {
 //Inner function is actually what run inside component
 const editBlogPost=dispatch=>{
 
-	return(id,title,content,callback)=>{
+	return  async(id,title,content,callback)=>{
 
+		await jsonServer.put(`/blogpost/${id}`,{ title,content })
 		dispatch({type:'edit_blogPost',payload:{id:id, title:title , content:content}})
 
 		if(callback)
@@ -117,11 +120,14 @@ const editBlogPost=dispatch=>{
 
 
 const deleteBlogPost = (dispatch) => {
-	return (id) => {
+	return async(id) => {
+
+		await jsonServer.delete(`/blogpost/${id}`)
 		dispatch({
 			type: 'delete_blogpost',
 			payload: id
 		}) //actually running inside component
+
 	}
 }
 

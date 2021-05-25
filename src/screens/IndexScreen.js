@@ -15,6 +15,15 @@ const indexScreen=({navigation})=>{
 
 		// console.log(getBlogPost)
 		getBlogPost()
+		const listener=navigation.addListener('didFocus' , () => {
+
+			getBlogPost()
+		})
+ 
+ 		//Clean the listener when the page is completely deleted
+		return()=>{
+			listener.remove();
+		};
 
 	},[])
 	
